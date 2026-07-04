@@ -1,6 +1,6 @@
 ## Regulatory Work by ORI
 
-This Folder contains three sets of documents. 
+This Folder contains four sets of documents. 
 
 ### First, Comments filed with the FCC and Other Agencies
 
@@ -19,6 +19,10 @@ https://vimeo.com/536463719
 ### Third, documents relating to Open Source and Debris Mitigation Rules. 
 
 Slide deck and position paper are included. Ham Expo August 2021 video: https://vimeo.com/610998209 
+
+### Fourth, documents relating to Synthetic Aperture Radar regulations.
+
+Findings from Jehan Azad's work with Thomsen & Burke, based on ORI's investigations and findings for amateur and public domain SAR.
 
 ### Get Involved
 
