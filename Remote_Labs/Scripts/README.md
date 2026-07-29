@@ -20,7 +20,7 @@ __A note about screen images:__ not all of these instruments have documented pro
 Get a screen image from the EEZ-BB3 Power Supply.  Writes a 480x272 pixel JPEG file named `bb3_screen.jpg` to the current directory.
 
 ### `os_screen.py`
-Get a screen image from the DS1104Z Oscilloscope.  Writes a 800x480 pixel JPEG file named `bb3_screen.jpg` to the current directory.
+Get a screen image from the DS1104Z Oscilloscope.  Writes a 800x480 pixel JPEG file named `os_screen.jpg` to the current directory.
 
 ### `ps_screen.py`
 Get a screen image from the DP832 Power Supply. Writes a 320x240 pixel BMP file named `ps_screen.bmp` to the current directory.
