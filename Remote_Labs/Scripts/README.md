@@ -39,6 +39,25 @@ This script requires that ImageMagick be installed, and all the individual scrip
 ### `mod_all_screen.py`
 Like `all_screen.py` except it doesn't use a subdirectory.
 
+## Set Frequency on Spectrum Analyzer
+These scripts to set the center frequency on the RSA5065N Spectrum Analyzer were used
+with the instrument in VNA mode with zero span, thus turning the spectrum analyzer into
+a sinewave signal generator with a higher frequency range than our actual signal
+generator.
+
+### `rigolsetfreq.py`
+Sets the frequency from the command line, in Hz.
+
+### `rigolsetchan.py`
+Sets the frequency from the command line, specified as a channel number in the scheme
+that was current on that day. Probably needs updating to match the final channel
+numbering scheme.
+
+### `rigolsetchanfrac.py`
+Like rigolsetchan.py, but allows the channel number to be a floating point value,
+enabling the frequency to be between nominal channel boundaries. Probably needs
+updating to match the final channel numbering scheme.
+
 ## Other Scripts
 
 ### `sa_peak.py`
