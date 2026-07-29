@@ -235,3 +235,19 @@ When you eject the device, the Pluto should reboot with the new settings. If you
 At this point you will probably want to re-install some version of your custom firmware. If you install the same version that bricked the Pluto, it will likely brick it again, but that's OK, since you now know exactly how to restore it. You might also decide to install the previous working version, or a newer purportedly-fixed version. Use your normal firmware installation procedure. For example, you can use the mass storage device again: write your new firmware into `pluto.frm` in the mass storage volume, and then __eject__ the device.
 
 If you anticipate a lengthy struggle with firmware that may brick your Pluto, you might find it more convenient to download the firmware versions under test to the Pluto's RAM, rather than installing each version to flash and risking another bricking. See [https://wiki.analog.com/university/tools/pluto/devs/reboot](https://wiki.analog.com/university/tools/pluto/devs/reboot) for details.
+
+## If the Pluto is a Clone
+
+If you've bricked a LibreSDR or other Pluto clone, the procedures described above might not work.
+
+### Try Tezuka
+
+F5OEO has a firmware build called Tezuka that works on Pluto clones. Among other nifty features, it's pretty smart about repairing device configurations.
+
+The short form of the procedure is to write a microSD card (assuming here that your Pluto clone has a microSD card slot) with a suitable Tezuka image, and use it to boot the device. That's all! You can then proceed to reload whatever firmware you're experimenting with.
+
+A more detailed version of this procedure can be found at [https://github.com/mahapo/hamgeek-pluto-brick-fix](https://github.com/mahapo/hamgeek-pluto-brick-fix).
+
+### If Tezuka Doesn't Work
+
+There are some clues in [https://github.com/plutoplus/plutoplus/issues/51](https://github.com/plutoplus/plutoplus/issues/51).
