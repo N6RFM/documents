@@ -4,6 +4,8 @@ DRAFT 2022-04-12 Paul Williamson KB5MU
 
 The AYECKa SR-1 is a commercial data receiver for DVB-S2 (but not DVB-S2X) and GSE, installed in the Remote Lab in San Diego.
 
+It is not always available. If you want to use it, ask on Slack for it to be connected.
+
 # SR-1 Manual
 
 The manual for the SR-1 is in [Test Equipment](Test_Equipment/SR-1\ DVB-S2\ GSE\ Receiver).
@@ -20,7 +22,7 @@ If you have difficulty accessing the management interface, see below for trouble
 
 ## Management through the Serial Port
 
-The USB serial port is connected to the chococat VM, currently at /dev/ttyUSB2, and works at 115200 baud. On chococat, you can connect to it with:
+When the SR-1 is connected, its USB serial port is generally connected to the chococat VM, perhaps at /dev/ttyUSB2, and works at 115200 baud. On chococat, you can connect to it with:
 ```
 screen /dev/ttyUSB2 115200
 ```
@@ -28,7 +30,7 @@ After connecting, you may need to type '0' (zero) once or twice to get the menu 
 
 ## Ethernet Ports and Domain Names
 
-The SR-1 has two Ethernet ports. Both are connected to the Remote Lab private LAN. The management port is known as `sr1m.sandiego.openresearch.institute`, and the traffic port is known as `sr1t.sandiego.openresearch.institute`. These may be abbreviated as `sr1m` and `sr1t` from hosts on the Remote Lab private LAN.
+The SR-1 has two Ethernet ports. When the SR-1 is connected, both ports are connected to the Remote Lab private LAN. The management port is known as `sr1m.sandiego.openresearch.institute`, and the traffic port is known as `sr1t.sandiego.openresearch.institute`. These may be abbreviated as `sr1m` and `sr1t` from hosts on the Remote Lab private LAN.
 
 The management port will respond to pings, but the traffic port will not.
 
