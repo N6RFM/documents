@@ -19,12 +19,15 @@ Be sure you have a good reason to use X11 forwarding. VNC screen sharing is more
 
 You need to run an X11 server on your local machine.
 
-If you're on a Linux machine with a GUI desktop, that's already done. If you're on a Linux machine that only has the command line, you may be able to install desktop support.
+If you're on a Linux machine with a GUI desktop, that's already done, unless your Linux is modern enough to be running Wayland instead of X11. On a Wayland machine, look into running Xwayland to provide an X11 server via Wayland.
+
+If you're on a Linux machine that only has the command line, you may be able to install desktop support.
 
 If your local machine is a Mac, you will need to install an X11 server program. The one to get is called Xquartz, but unfortunately it is not fully compatible with everything you will want to do. For instance, most of Vivado works fine, but you can't even launch the documentation viewer. Mac users who need to use GUI programs like Vivado remotely should probably just use VNC and forget about forwarding X11. Alternatively, you might consider installing a virtual machine host on your Mac and running a Linux virtual machine. 
 
-If your local machine runs Windows, you can install an X11 server program such as `Xming`. I have not yet tested X11 servers on Windows. Let me know what works for you and I'll add it here. Alternatively, you might consider installing a virtual machine host and running a Linux virtual machine. (Windows Subsystem for Linux does not currently solve the graphics problem, so you'll need a true VM environment like Parallels Desktop. That may change soon according to rumors from Microsoft.)
+If your local machine runs Windows, you can install an X11 server program such as `Xming` or `MobaXterm`. I have not yet tested X11 servers on Windows. Let me know what works for you and I'll add it here. Alternatively, you might consider installing a virtual machine host and running a Linux virtual machine.
 
+If you run Linux on a Windows machine using Windows Subsystem for Linux (WSL2), and you are running a recent version, it's supposed to automatically provide X11 forwarding using a program called `WSLg`.
 
 ## Preparations for SSH Access
 
@@ -68,4 +71,4 @@ Now you can start whatever GUI programs you want to use. Type the program name a
 
 ## Support
 
-You can always email the lab managers at [sandiego-lab@openresearch.institute](mailto:sandiego-lab@openresearch.institute) with any questions or suggestions. You can also find us, more often than not, in the **Phase 4 Ground** Slack in the **remote_labs** channel.
+You can always email the lab managers at [sandiego-lab@openresearch.institute](mailto:sandiego-lab@openresearch.institute) with any questions or suggestions. You can also find us, more often than not, in the **Open Research Institute** Slack in the **remote_labs** channel.
