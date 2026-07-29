@@ -1,8 +1,6 @@
 # Setting Up for Remote Access to ORI Labs
 
-Revised 2022-01-07 kb5mu
-
-Note: the Little Rock lab is not yet available for general use at this time.
+Revised 2026-07-28 kb5mu
 
 * [Description of the Network](#description-of-the-network)
 * [Ways to Access the Private LAN](#ways-to-access-the-private-lan)
@@ -14,12 +12,13 @@ Note: the Little Rock lab is not yet available for general use at this time.
 * [Linux Screen Sharing with X11](#linux-screen-sharing-with-x11)
 * [Support](#support)
 
-The ORI remote lab in San Diego consists of three computers and an array of test
-equipment, all sharing an isolated local area network (LAN). The ORI remote lab
-in Little Rock consists of two computers and a similar array of test equipment,
-all sharing another isolated LAN.
+The ORI remote lab in San Diego (ORI West) consists of three computers and an array of test
+equipment, all sharing an isolated local area network (LAN). The second ORI remote lab was
+intended for Little Rock (ORI South) but is presently also in San Diego. Its two computers
+are on a separate isolated LAN, and a subset of the same test equipment is in boxes awaiting
+redeployment.
 
-At each lab, a Raspberry Pi 4 running Raspberry Pi OS, with an extra Ethernet
+On each LAN, a Raspberry Pi 4 running Raspberry Pi OS, with an extra Ethernet
 port provided by a USB dongle, is responsible for all connections to and from
 the Internet. It, in turn, is isolated from other network hosts in the building
 by means of VLAN routing in an Ethernet switch. The San Diego Pi's local host
@@ -27,9 +26,8 @@ name is `ori-west` and it also has the domain name `sandiego.openresearch.instit
 Likewise, the Little Rock Pi is named `ori-south` and `littlerock.openresearch.institute`.
 
 In San Diego, a decently powerful Windows machine named `Aperture` is connected only to the LAN.
-It has an installation of Xilinx Vivado, and is enabled for Remote Desktop access.
-This machine was installed as a temporary substitute for the third machine, but
-for now will continue to be available. It also hosts two DVB-S2 satellite receivers on PCIe cards.
+It has an installation of Xilinx Vivado, though we have not been using it for Vivado. It is
+enabled for Remote Desktop access, and hosts two DVB-S2 satellite receivers on PCIe cards.
 
 At each lab, an extremely powerful PC is connected only to the LAN.
 In San Diego, it is named `Chonc`; in Little Rock, `Chubb`. It features
@@ -39,7 +37,10 @@ interconnect, 256GB of RAM, a 32TB disk array with double parity protection, dua
 system running on the hardware is Unraid from Lime Technology. Unraid is a
 flavor of Linux, combined with a flexible NAS-like storage manager and a
 hardware-assisted virtualization host. Each machine is configured to host a number of
-virtual machines, which run Windows 10 Pro or Linux as needed.
+virtual machines, which run Windows or Linux as needed. Some pieces of hardware
+in the host PC can be exclusively assigned to a single VM, providing near-native
+performance. The RTX 3080 graphics card, for instance, can be assigned to a VM
+for GPU-based computation. 
 
 Typically, a remote lab user would log in to one of these VMs and work there,
 without needing to consider that the environment is virtual, running on top of
@@ -49,31 +50,39 @@ managers for help configuring a suitable virtual machine.
 
 * A Windows 10 Pro virtual machine named `chonc-win10` is available for general use
 in the San Diego lab.
-It has direct-mapped access to the Nvidia graphics card, which enables its use for
-GPU-assisted signal processing development work. (GPU usage remains untested.) This
-VM auto-starts when Chonc boots, so it should always be running unless something
-else is running that also needs to use the GPU.
 
-* An Ubuntu 18.04.6 virtual machine named `chococat` is set up in the San Diego
+* An Ubuntu 22.04.5 virtual machine named `chococat` is set up in the San Diego
 lab for FPGA development
 using Xilinx Vivado. This VM auto-starts when Chonc boots, so it should generally
 always be running. It is connected to a Xilinx ZC706 via two USB serial ports,
 one connected to the JTAG port and the other connected to the UART port. The ZC706
 is also connected to the lab LAN, and hosts an Analog Devices ADRV9371 transceiver
-development board.
+development board. Primary disk storage for chococat is provided by a dedicated
+NVMe SSD for near-native performance on disk-intensive development tasks.
 
-* Another Ubuntu 18.04.6 virtual machine named `keroppi` is also set up in the
+* Another Ubuntu 22.04.5 virtual machine named `keroppi` is also set up in the
 San Diego lab for FPGA development using Xilinx Vivado. This VM also auto-starts
 when Chonc boots, so it should generally always be running. It is connected to a
 Xilinx ZCU106 via five USB serial ports, one connected to the JTAG port and the
 other four connected to UART ports. At times an ADALM Pluto SDR is also connected.
-The ZCU106 is also connected to the lab LAN.
+The ZCU106 is also connected to the lab LAN. Primary disk storage for keroppi
+is provided by a dedicated NVMe SSD for near-native performance on disk-intensive
+development tasks.
 
-* An Ubuntu 20.04.2 virtual machine named `chonc-a` is set up in the San Diego lab for general Linux use.
+* An Ubuntu 20.04.2 virtual machine named `chonc-a` is set up in the San Diego
+lab for general Linux use. This VM does not auto-start when Chonc boots.
+
+* An Ubuntu 22.04.5 virtual machine named `mymelody` is set up in the Little Rock
+lab for FPGA development using Xilinx Vivado. This VM auto-starts when Chubb boots,
+so it should generally always be running. It is used with a Xilinx ZCU102 through
+the LAN, but not connected directly to it. Primary disk storage for mymelody
+is provided by a dedicated NVMe SSD for near-native performance on disk-intensive
+development tasks.
 
 * An Ubuntu 20.04 virtual machine named `chubb-xxl` is set up in the Little Rock lab
 for general Linux use. It is configured with the maximum number of cores (31) and a
-large RAM allocation (144GB), so it should be quite fast. It has only 200GB of disk
+large RAM allocation (144GB), so it should be quite fast at tasks that are not
+disk-intensive. It has only 200GB of disk
 storage allocated for general use, but the `/tools` directory is allocated on the
 main disk array and has disk space limited only by the total array size (32TB).
 The idea is the `/tools` contains installations of large development toolchains
@@ -249,7 +258,7 @@ We will need to work out a way to ensure that lab users don't interfere with eac
 
 ## Preparations for Wireguard VPN Access
 
-This method is probably optional. The baseline method of access is through SSH, described in the previous section.
+This method is probably optional, but recommended. Wireguard works great for most things; a few things may require SSH instead.
 
 To make the equipment in the lab act like part of your own network, you first need to install the Wireguard client program on your computer. See [Wireguard Installation](https://www.wireguard.com/install/) for more info on this. It's easy to install on almost any kind of computer.
 
